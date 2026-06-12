@@ -18,7 +18,9 @@ test('sceneIndexForProgress copre i confini', () => {
   const n = journeyScenes.length
   expect(sceneIndexForProgress(0)).toBe(0)
   expect(sceneIndexForProgress(1)).toBe(n - 1)
-  expect(sceneIndexForProgress(0.5)).toBe(Math.min(n - 1, Math.floor(0.5 * n)))
+  // round semantics: scene i is centred at progress i/(n-1)
+  expect(sceneIndexForProgress(0.5)).toBe(Math.round(0.5 * (n - 1)))
+  // out-of-range inputs clamp to 0 and n-1
   expect(sceneIndexForProgress(-1)).toBe(0)
   expect(sceneIndexForProgress(2)).toBe(n - 1)
 })

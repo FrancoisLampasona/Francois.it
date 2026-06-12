@@ -36,7 +36,7 @@ export default function JourneyCanvas() {
       <directionalLight position={[-6, -4, -8]} intensity={0.25} color="#8080ff" />
       <Stars radius={140} depth={90} count={4000} factor={4} saturation={0} fade speed={0.4} />
       {journeyScenes.map(
-        (scene) =>
+        (scene, i) =>
           scene.planet && (
             <Planet
               key={scene.id}
@@ -45,6 +45,7 @@ export default function JourneyCanvas() {
               color={scene.planet.color}
               texture={scene.planet.texture}
               ring={scene.planet.ring}
+              sceneIndex={i}
             />
           ),
       )}

@@ -2,8 +2,9 @@ import { useRef } from 'react'
 import { useFrame, extend } from '@react-three/fiber'
 import { useTexture, shaderMaterial } from '@react-three/drei'
 import { AdditiveBlending, BackSide, DoubleSide, Color } from 'three'
-import type { Mesh } from 'three'
+import type { Mesh, MeshStandardMaterial, MeshBasicMaterial } from 'three'
 import type { Vec3 } from './scenes'
+import { sceneIndexForProgress, useJourneyStore } from './store'
 
 // Preload all planet textures at module level
 useTexture.preload('/journey/tex-origini.webp')
@@ -58,15 +59,57 @@ type PlanetProps = {
   color: string
   texture: string
   ring?: boolean
+  sceneIndex: number
 }
 
-export function Planet({ position, radius, color, texture, ring }: PlanetProps) {
+export function Planet({ position, radius, color, texture, ring, sceneIndex }: PlanetProps) {
   const meshRef = useRef<Mesh>(null)
+  const atmMeshRef = useRef<Mesh>(null)
+  const ringMeshRef = useRef<Mesh>(null)
+  const opacityRef = useRef<number>(0)
   const map = useTexture(texture)
   const atmColor = new Color(color)
 
   useFrame((_, delta) => {
+    // Rotate planet
     if (meshRef.current) meshRef.current.rotation.y += delta * 0.1
+
+    // Compute target opacity based on distance from active scene
+    const progress = useJourneyStore.getState().progress
+    const active = sceneIndexForProgress(progress)
+    const dist = Math.abs(sceneIndex - active)
+    const target = dist === 0 ? 1 : dist === 1 ? 0.25 : 0
+
+    // Smooth damp toward target
+    const cur = opacityRef.current
+    opacityRef.current = cur + (target - cur) * (1 - Math.exp(-6 * delta))
+
+    const opacity = opacityRef.current
+    const visible = opacity > 0.01
+
+    // Apply to planet surface
+    if (meshRef.current) {
+      meshRef.current.visible = visible
+      const mat = meshRef.current.material as MeshStandardMaterial
+      mat.opacity = opacity
+      mat.transparent = true
+    }
+
+    // Apply to atmosphere shell
+    if (atmMeshRef.current) {
+      atmMeshRef.current.visible = visible
+      const mat = atmMeshRef.current.material as AtmosphereMaterialImpl
+      // atmosphere uses custom shader; scale its overall opacity via alphaTest trick —
+      // instead, just toggle visibility to match (it's already additive blended)
+      mat.opacity = opacity
+    }
+
+    // Apply to ring if present
+    if (ringMeshRef.current) {
+      ringMeshRef.current.visible = visible
+      const mat = ringMeshRef.current.material as MeshBasicMaterial
+      mat.opacity = opacity * 0.5
+    }
   })
 
   return (
@@ -74,11 +117,11 @@ export function Planet({ position, radius, color, texture, ring }: PlanetProps) 
       {/* Main planet sphere */}
       <mesh ref={meshRef}>
         <sphereGeometry args={[radius, 48, 48]} />
-        <meshStandardMaterial map={map} roughness={0.9} metalness={0.05} />
+        <meshStandardMaterial map={map} roughness={0.9} metalness={0.05} transparent />
       </mesh>
 
       {/* Atmosphere fresnel glow shell */}
-      <mesh>
+      <mesh ref={atmMeshRef}>
         <sphereGeometry args={[radius * 1.08, 48, 48]} />
         <atmosphereMaterial
           atmColor={atmColor}
@@ -91,7 +134,7 @@ export function Planet({ position, radius, color, texture, ring }: PlanetProps) 
 
       {/* Optional rings (finale planet only) */}
       {ring && (
-        <mesh rotation={[-Math.PI / 2.2, 0, 0]}>
+        <mesh ref={ringMeshRef} rotation={[-Math.PI / 2.2, 0, 0]}>
           <ringGeometry args={[radius * 1.4, radius * 2.2, 64]} />
           <meshBasicMaterial
             color={color}
