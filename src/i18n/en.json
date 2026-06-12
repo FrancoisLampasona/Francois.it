@@ -37,5 +37,37 @@
       "title": "BoopStudio",
       "desc": "My startup for end-to-end website development: UX/UI, coding and hosting deployment."
     }
+  },
+  "journey": {
+    "skip": "Skip to the desk",
+    "progress": "Journey progress",
+    "decollo": {
+      "title": "A journey through the worlds I've built",
+      "text": "Buckle up: scroll and take off with me and my dog for a little tour of the universe. Every planet is a piece of my story."
+    },
+    "origini": {
+      "title": "Origins — Salemi, Sicily",
+      "text": "Raised between the castle of Salemi and a scientific high school: maths, physics and the urge to take things apart to see how they work. Rules are for fools: I explore technology, break it, and rebuild it better."
+    },
+    "frontend": {
+      "title": "Planet Frontend",
+      "text": "React, Flutter, Tailwind: living, reactive interfaces polished to the pixel. This is where code becomes something people touch."
+    },
+    "backend": {
+      "title": "Planet Backend & DevOps",
+      "text": "Spring Boot, Docker, AWS, CI/CD: the invisible part holding everything up. Containers in orbit and deploys that ship themselves."
+    },
+    "maserati": {
+      "title": "Planet Maserati",
+      "text": "At Stellantis Group I manage Maserati's global websites with Adobe Experience Manager: international teams, weekly sprints, a brand that allows no rough edges."
+    },
+    "boop": {
+      "title": "Planet BoopStudio",
+      "text": "My startup: showcase websites, e-commerce and tailor-made apps, from idea to delivery. Every client is a new world to build."
+    },
+    "finale": {
+      "title": "A universe of possibilities",
+      "text": "Every project is a new planet to explore. The next one could be yours: come down to my desk and let's talk."
+    }
   }
 }

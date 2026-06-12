@@ -37,5 +37,37 @@
       "title": "BoopStudio",
       "desc": "La mia startup per lo sviluppo completo di siti web: UX/UI, programmazione e distribuzione su hosting."
     }
+  },
+  "journey": {
+    "skip": "Salta alla scrivania",
+    "progress": "Avanzamento del viaggio",
+    "decollo": {
+      "title": "Un viaggio tra i mondi che ho costruito",
+      "text": "Allacciati: scorri e parti con me e il mio cane per un piccolo giro dell'universo. Ogni pianeta è un pezzo della mia storia."
+    },
+    "origini": {
+      "title": "Origini — Salemi, Sicilia",
+      "text": "Cresciuto tra il castello di Salemi e il liceo scientifico: matematica, fisica e la mania di smontare le cose per capire come funzionano. Rules are for fools: la tecnologia la esploro, la rompo, la ricostruisco meglio."
+    },
+    "frontend": {
+      "title": "Il pianeta Frontend",
+      "text": "React, Flutter, Tailwind: interfacce vive e reattive, curate fino al pixel. È qui che il codice diventa qualcosa che le persone toccano."
+    },
+    "backend": {
+      "title": "Il pianeta Backend & DevOps",
+      "text": "Spring Boot, Docker, AWS, CI/CD: la parte invisibile che regge tutto. Container in orbita e deploy che partono da soli."
+    },
+    "maserati": {
+      "title": "Il pianeta Maserati",
+      "text": "Nel Gruppo Stellantis gestisco i siti Maserati a livello globale con Adobe Experience Manager: team internazionali, sprint settimanali, brand che non ammette sbavature."
+    },
+    "boop": {
+      "title": "Il pianeta BoopStudio",
+      "text": "La mia startup: siti vetrina, e-commerce e app su misura, dall'idea alla consegna. Ogni cliente è un nuovo mondo da costruire."
+    },
+    "finale": {
+      "title": "L'universo delle possibilità",
+      "text": "Ogni progetto è un pianeta nuovo da esplorare. Il prossimo potrebbe essere il tuo: scendi alla mia scrivania e parliamone."
+    }
   }
 }
