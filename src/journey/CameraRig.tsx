@@ -1,49 +1,52 @@
 import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { CatmullRomCurve3, Vector3 } from 'three'
+import { Vector3 } from 'three'
 import { journeyScenes } from './scenes'
 import { sceneIndexForProgress, useJourneyStore } from './store'
 
 // Module-level scratch vectors to avoid per-frame allocations
-const _scratchPos = new Vector3()
-const _scratchDesired = new Vector3()
-
-// Zoom target: slightly in front of the finale planet center [-16, 4, -132]
-const FINALE_TARGET = new Vector3(-16, 6, -126)
+const _targetPos = new Vector3()
+const _lookDesired = new Vector3()
+const _finaleZoom = new Vector3(-16, 6, -126)
 
 export function CameraRig() {
-  const curve = useMemo(
+  // Precompute camera positions and look targets per scene
+  const camPositions = useMemo(
+    () => journeyScenes.map((s) => new Vector3(...s.cameraPos)),
+    [],
+  )
+  const lookTargets = useMemo(
     () =>
-      new CatmullRomCurve3(
-        journeyScenes.map((s) => new Vector3(...s.cameraPos)),
-        false,
-        'catmullrom',
-        0.3,
+      journeyScenes.map((s, i) =>
+        s.planet
+          ? new Vector3(...s.planet.position)
+          : // decollo (no planet): look slightly ahead toward the next scene
+            new Vector3(...(journeyScenes[i + 1]?.cameraPos ?? s.cameraPos)),
       ),
     [],
   )
+
   const lookTarget = useRef(new Vector3(0, 0, -20))
 
   useFrame(({ camera }, delta) => {
     const progress = useJourneyStore.getState().progress
-    const alphaPos = 1 - Math.exp(-5 * delta)
-    const alphaLook = 1 - Math.exp(-4 * delta)
+    const active = sceneIndexForProgress(progress)
+    const alphaPos = 1 - Math.exp(-3.2 * delta)
+    const alphaLook = 1 - Math.exp(-3.2 * delta)
 
-    curve.getPointAt(Math.min(progress, 0.9999), _scratchPos)
-    camera.position.lerp(_scratchPos, alphaPos)
+    // The camera rests on (snaps to) the active scene's vantage point.
+    _targetPos.copy(camPositions[active])
 
-    if (progress >= 0.92) {
-      const t = (progress - 0.92) / 0.08
-      camera.position.lerp(FINALE_TARGET, 1 - Math.exp(-6 * t * delta))
+    // Final scene: push in toward the planet for a zoom-in send-off.
+    if (active === journeyScenes.length - 1 && progress >= 0.92) {
+      const t = Math.min(1, (progress - 0.92) / 0.08)
+      _targetPos.lerp(_finaleZoom, t)
     }
 
-    const scene = journeyScenes[sceneIndexForProgress(progress)]
-    if (scene.planet) {
-      _scratchDesired.set(...scene.planet.position)
-    } else {
-      curve.getPointAt(Math.min(progress + 0.05, 0.9999), _scratchDesired)
-    }
-    lookTarget.current.lerp(_scratchDesired, alphaLook)
+    camera.position.lerp(_targetPos, alphaPos)
+
+    _lookDesired.copy(lookTargets[active])
+    lookTarget.current.lerp(_lookDesired, alphaLook)
     camera.lookAt(lookTarget.current)
   })
 

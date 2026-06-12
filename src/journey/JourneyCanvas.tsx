@@ -53,11 +53,13 @@ export default function JourneyCanvas() {
         url="/journey/castello-salemi.webp"
         position={CASTLE_POSITION}
         scale={CASTLE_SCALE}
+        sceneIndex={1}
       />
       <SceneSprite
         url="/journey/francois-cane.webp"
         position={FRANCOIS_POSITION}
         scale={FRANCOIS_SCALE}
+        sceneIndex={6}
       />
       <CameraRig />
     </Canvas>

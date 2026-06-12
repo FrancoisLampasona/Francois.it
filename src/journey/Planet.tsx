@@ -16,7 +16,7 @@ useTexture.preload('/journey/tex-finale.webp')
 
 // Atmosphere fresnel shader material created via drei helper
 const AtmosphereMaterial = shaderMaterial(
-  { atmColor: new Color(1, 1, 1) },
+  { atmColor: new Color(1, 1, 1), uOpacity: 1 },
   // vertex shader
   `
     varying vec3 vNormal;
@@ -28,19 +28,24 @@ const AtmosphereMaterial = shaderMaterial(
       gl_Position = projectionMatrix * worldPos;
     }
   `,
-  // fragment shader
+  // fragment shader — soft diffuse rim, fades with uOpacity
   `
     uniform vec3 atmColor;
+    uniform float uOpacity;
     varying vec3 vNormal;
     varying vec3 vViewDir;
     void main() {
-      float intensity = pow(1.0 - dot(normalize(vNormal), normalize(vViewDir)), 3.0);
-      gl_FragColor = vec4(atmColor, intensity * 0.7);
+      float fresnel = 1.0 - dot(normalize(vNormal), normalize(vViewDir));
+      float intensity = pow(fresnel, 4.5);
+      gl_FragColor = vec4(atmColor, intensity * 0.55 * uOpacity);
     }
   `,
 )
 
-type AtmosphereMaterialImpl = InstanceType<typeof AtmosphereMaterial> & { atmColor: Color }
+type AtmosphereMaterialImpl = InstanceType<typeof AtmosphereMaterial> & {
+  atmColor: Color
+  uOpacity: number
+}
 
 extend({ AtmosphereMaterial })
 
@@ -74,15 +79,14 @@ export function Planet({ position, radius, color, texture, ring, sceneIndex }: P
     // Rotate planet
     if (meshRef.current) meshRef.current.rotation.y += delta * 0.1
 
-    // Compute target opacity based on distance from active scene
+    // Only the active scene's planet is shown; it fades in/out smoothly.
     const progress = useJourneyStore.getState().progress
     const active = sceneIndexForProgress(progress)
-    const dist = Math.abs(sceneIndex - active)
-    const target = dist === 0 ? 1 : dist === 1 ? 0.25 : 0
+    const target = sceneIndex === active ? 1 : 0
 
     // Smooth damp toward target
     const cur = opacityRef.current
-    opacityRef.current = cur + (target - cur) * (1 - Math.exp(-6 * delta))
+    opacityRef.current = cur + (target - cur) * (1 - Math.exp(-5 * delta))
 
     const opacity = opacityRef.current
     const visible = opacity > 0.01
@@ -95,20 +99,18 @@ export function Planet({ position, radius, color, texture, ring, sceneIndex }: P
       mat.transparent = true
     }
 
-    // Apply to atmosphere shell
+    // Apply to atmosphere shell (custom shader: drive its fade via uOpacity uniform)
     if (atmMeshRef.current) {
       atmMeshRef.current.visible = visible
       const mat = atmMeshRef.current.material as AtmosphereMaterialImpl
-      // atmosphere uses custom shader; scale its overall opacity via alphaTest trick —
-      // instead, just toggle visibility to match (it's already additive blended)
-      mat.opacity = opacity
+      mat.uOpacity = opacity
     }
 
     // Apply to ring if present
     if (ringMeshRef.current) {
       ringMeshRef.current.visible = visible
       const mat = ringMeshRef.current.material as MeshBasicMaterial
-      mat.opacity = opacity * 0.5
+      mat.opacity = opacity * 0.45
     }
   })
 
