@@ -11,14 +11,17 @@ type SceneSpriteProps = {
   scale: number
   // Scene index this sprite belongs to; it fades in only on its scene.
   sceneIndex: number
+  /** If true, the sprite bobs up and down gently. */
+  float?: boolean
 }
 
-export function SceneSprite({ url, position, scale, sceneIndex }: SceneSpriteProps) {
+export function SceneSprite({ url, position, scale, sceneIndex, float }: SceneSpriteProps) {
   const texture = useTexture(url)
   const meshRef = useRef<Mesh>(null)
   const opacity = useRef(0)
+  const baseY = position[1]
 
-  useFrame((_, delta) => {
+  useFrame((state, delta) => {
     const active = sceneIndexForProgress(useJourneyStore.getState().progress)
     const target = active === sceneIndex ? 1 : 0
     opacity.current += (target - opacity.current) * (1 - Math.exp(-6 * delta))
@@ -27,6 +30,9 @@ export function SceneSprite({ url, position, scale, sceneIndex }: SceneSpritePro
       const mat = mesh.material as MeshBasicMaterial
       mat.opacity = opacity.current
       mesh.visible = opacity.current > 0.01
+      if (float) {
+        mesh.parent!.position.y = baseY + Math.sin(state.clock.elapsedTime * 1.2) * 0.35
+      }
     }
   })
 

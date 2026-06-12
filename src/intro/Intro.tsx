@@ -132,10 +132,10 @@ export function Intro({ onFinish }: IntroProps) {
 
       {/* Signature */}
       <p
-        className="absolute bottom-10 right-10 text-lg italic text-white/70 underline decoration-white/30 underline-offset-[6px]"
+        className="absolute bottom-10 right-10 text-xl italic text-white/90 underline decoration-white/50 underline-offset-[6px]"
         style={{ fontFamily: '"Cormorant Garamond", serif' }}
       >
-        in the mind of francois lampasona
+        in the mind of Francois Lampasona
       </p>
 
       {/* Skip button */}

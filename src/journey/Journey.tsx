@@ -8,6 +8,7 @@ import { JourneyBackdrop } from './JourneyBackdrop'
 import { JourneyOverlay } from './JourneyOverlay'
 import { JourneyFade } from './JourneyFade'
 import { JourneyStatic } from './JourneyStatic'
+import { SceneLogos } from './SceneLogos'
 
 if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
   gsap.registerPlugin(ScrollTrigger)
@@ -30,6 +31,12 @@ export function Journey() {
       start: 'top top',
       end: 'bottom bottom',
       scrub: true,
+      snap: {
+        snapTo: 1 / (journeyScenes.length - 1),
+        duration: { min: 0.3, max: 0.9 },
+        ease: 'power2.inOut',
+        delay: 0.1,
+      },
       onUpdate: (self) => setProgress(self.progress),
     })
     return () => trigger.kill()
@@ -58,6 +65,7 @@ export function Journey() {
           <JourneyCanvas />
         </Suspense>
         <JourneyOverlay />
+        <SceneLogos />
         <JourneyFade />
       </div>
     </div>

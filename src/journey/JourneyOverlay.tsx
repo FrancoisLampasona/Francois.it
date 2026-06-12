@@ -19,8 +19,13 @@ export function JourneyOverlay() {
     <div className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-end pb-16">
       <div aria-live="polite" aria-atomic="true" className="max-w-xl px-6 text-center">
         <div key={scene.id}>
-          <h2 className="text-2xl font-semibold sm:text-3xl">{t(scene.titleKey)}</h2>
-          <p className="mt-3 text-sm text-slate-300 sm:text-base">{t(scene.textKey)}</p>
+          <h2
+            className="journey-shadow text-4xl font-bold tracking-tight sm:text-6xl"
+            style={{ fontFamily: '"Space Grotesk", sans-serif' }}
+          >
+            {t(scene.titleKey)}
+          </h2>
+          <p className="journey-shadow mt-3 text-base text-white sm:text-lg">{t(scene.textKey)}</p>
         </div>
       </div>
       <nav aria-label={t('journey.progress')} className="mt-6 flex gap-2">

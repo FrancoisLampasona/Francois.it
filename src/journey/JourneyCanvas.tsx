@@ -10,6 +10,7 @@ import type { Vec3 } from './scenes'
 // Preload sprite textures so they're ready before the scene renders
 useTexture.preload('/journey/castello-salemi.webp')
 useTexture.preload('/journey/francois-cane.webp')
+useTexture.preload('/journey/razzo.webp')
 
 // Origini planet: center [14, 0, -16], radius 3
 // Castle sits on top: planet top at y=3, plane center ~1.05 above → y=4.05
@@ -20,6 +21,10 @@ const CASTLE_SCALE = 3.6
 // Francois+dog on top surface: planet top at y=8.5, center ~0.6 above → y=9.1
 const FRANCOIS_POSITION: Vec3 = [-16, 8.6, -132]
 const FRANCOIS_SCALE = 1.6
+
+// Decollo scene (index 0): camera at [0,0,10], rocket right-of-center in view
+const ROCKET_POSITION: Vec3 = [4.5, -0.5, 1]
+const ROCKET_SCALE = 5
 
 export default function JourneyCanvas() {
   const visible = useJourneyStore((s) => s.journeyVisible)
@@ -60,6 +65,13 @@ export default function JourneyCanvas() {
         position={FRANCOIS_POSITION}
         scale={FRANCOIS_SCALE}
         sceneIndex={6}
+      />
+      <SceneSprite
+        url="/journey/razzo.webp"
+        position={ROCKET_POSITION}
+        scale={ROCKET_SCALE}
+        sceneIndex={0}
+        float
       />
       <CameraRig />
     </Canvas>

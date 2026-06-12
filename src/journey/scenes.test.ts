@@ -54,3 +54,13 @@ test('solo il pianeta finale ha ring: true', () => {
   expect(withRing).toHaveLength(1)
   expect(withRing[0].id).toBe('finale')
 })
+
+test('ogni logo entry punta a un file esistente in public/', () => {
+  for (const s of journeyScenes) {
+    if (!s.logos) continue
+    for (const logo of s.logos) {
+      const filePath = join(process.cwd(), 'public', logo)
+      expect(existsSync(filePath), `logo ${logo} deve esistere`).toBe(true)
+    }
+  }
+})

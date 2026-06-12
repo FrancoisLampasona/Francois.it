@@ -57,9 +57,9 @@
       "title": "Planet Backend & DevOps",
       "text": "Spring Boot, Docker, AWS, CI/CD: the invisible part holding everything up. Containers in orbit and deploys that ship themselves."
     },
-    "maserati": {
-      "title": "Planet Maserati",
-      "text": "At Stellantis Group I manage Maserati's global websites with Adobe Experience Manager: international teams, weekly sprints, a brand that allows no rough edges."
+    "competenze": {
+      "title": "Planet Skills",
+      "text": "Git, Linux, Figma, Agile: the tools I use every day to build, version and ship. Orbit after orbit, the toolbox grows."
     },
     "boop": {
       "title": "Planet BoopStudio",

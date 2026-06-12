@@ -6,6 +6,7 @@ export type JourneyScene = {
   readonly textKey: string
   readonly cameraPos: Vec3
   readonly backdrop: string
+  readonly logos?: readonly string[]
   readonly planet?: {
     readonly position: Vec3
     readonly radius: number
@@ -31,6 +32,7 @@ export const journeyScenes: readonly JourneyScene[] = [
     textKey: 'journey.origini.text',
     cameraPos: [16, 2, -5],
     backdrop: '/journey/bg-origini.webp',
+    logos: ['/logos/c.svg', '/logos/cplusplus.svg', '/logos/python.svg'],
     planet: {
       position: [14, 0, -16],
       radius: 3,
@@ -44,6 +46,13 @@ export const journeyScenes: readonly JourneyScene[] = [
     textKey: 'journey.frontend.text',
     cameraPos: [32, -1, -29],
     backdrop: '/journey/bg-frontend.webp',
+    logos: [
+      '/logos/react.svg',
+      '/logos/flutter.svg',
+      '/logos/typescript.svg',
+      '/logos/tailwindcss.svg',
+      '/logos/html5.svg',
+    ],
     planet: {
       position: [30, -3, -40],
       radius: 2.8,
@@ -57,6 +66,13 @@ export const journeyScenes: readonly JourneyScene[] = [
     textKey: 'journey.backend.text',
     cameraPos: [16, -8, -53],
     backdrop: '/journey/bg-backend.webp',
+    logos: [
+      '/logos/spring.svg',
+      '/logos/docker.svg',
+      '/logos/aws.svg',
+      '/logos/postgresql.svg',
+      '/logos/firebase.svg',
+    ],
     planet: {
       position: [14, -10, -64],
       radius: 3,
@@ -65,11 +81,18 @@ export const journeyScenes: readonly JourneyScene[] = [
     },
   },
   {
-    id: 'maserati',
-    titleKey: 'journey.maserati.title',
-    textKey: 'journey.maserati.text',
+    id: 'competenze',
+    titleKey: 'journey.competenze.title',
+    textKey: 'journey.competenze.text',
     cameraPos: [-4, -3, -75],
     backdrop: '/journey/bg-maserati.webp',
+    logos: [
+      '/logos/git.svg',
+      '/logos/github.svg',
+      '/logos/linux.svg',
+      '/logos/figma.svg',
+      '/logos/jira.svg',
+    ],
     planet: {
       position: [-6, -5, -86],
       radius: 3.4,
@@ -83,6 +106,7 @@ export const journeyScenes: readonly JourneyScene[] = [
     textKey: 'journey.boop.text',
     cameraPos: [-24, 5, -97],
     backdrop: '/journey/bg-boop.webp',
+    logos: ['/logos/wordpress.svg', '/logos/shopify.svg', '/logos/woocommerce.svg'],
     planet: {
       position: [-26, 3, -108],
       radius: 2.6,
