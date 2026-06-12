@@ -9,7 +9,7 @@ import { ContactsWindow } from './ContactsWindow'
 test('ProjectsWindow elenca tutti i progetti', () => {
   render(<ProjectsWindow />)
   expect(screen.getByText('App gestionale palestra')).toBeInTheDocument()
-  expect(screen.getAllByRole('listitem').length).toBeGreaterThanOrEqual(projects.length)
+  expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(projects.length)
 })
 
 test('CvWindow ha il link di download del PDF', () => {

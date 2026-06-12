@@ -8,7 +8,7 @@ export function CvWindow() {
       <object
         data={profile.cvUrl}
         type="application/pdf"
-        className="h-96 w-full rounded"
+        className="h-[50vh] w-full rounded"
         aria-label={t('desk.cv')}
       >
         <p className="text-sm text-slate-300">{t('cv.noPreview')}</p>
