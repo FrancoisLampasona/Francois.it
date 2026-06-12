@@ -21,7 +21,9 @@ if (typeof globalThis !== 'undefined' && !globalThis.localStorage) {
       Object.keys(store).forEach(key => delete store[key])
     },
     key: (index: number) => Object.keys(store)[index] ?? null,
-    length: Object.keys(store).length,
+    get length() {
+      return Object.keys(store).length
+    },
   } as Storage
 }
 
