@@ -7,3 +7,5 @@ dist
 skills-lock.json
 .claude
 Francois_CV_Due_Pagine.pdf
+/test-results/
+/playwright-report/
