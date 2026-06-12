@@ -7,9 +7,9 @@ export default function App() {
   const { t } = useTranslation()
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
-      <header className="fixed top-0 z-40 flex w-full items-center justify-between px-6 py-4">
+      <header className="fixed top-0 z-40 flex w-full items-center justify-between bg-slate-950/80 px-6 py-4 backdrop-blur-sm">
         <div>
-          <p className="font-semibold">{profile.name}</p>
+          <h1 className="text-base font-semibold">{profile.name}</h1>
           <p className="text-xs text-slate-400">{t('hero.role')}</p>
         </div>
         <LanguageToggle />
