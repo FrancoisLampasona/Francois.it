@@ -17,5 +17,10 @@
 
 .intro-greeting {
   animation: introFade 0.6s ease forwards;
-  text-shadow: 0 0 28px rgba(143, 142, 240, 0.55), 0 0 60px rgba(99, 102, 241, 0.35);
+  text-shadow: 0 0 40px rgba(160, 170, 255, 0.6), 0 0 90px rgba(99, 102, 241, 0.4);
+}
+
+@keyframes introTwinkle {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.9; }
 }

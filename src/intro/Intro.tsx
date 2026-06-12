@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { greetings } from './greetings'
 import { useGreetingCycle } from './useGreetingCycle'
 
@@ -6,9 +6,24 @@ interface IntroProps {
   onFinish: () => void
 }
 
+type Star = { top: string; left: string; size: number; delay: string; duration: string }
+
 export function Intro({ onFinish }: IntroProps) {
   const [leaving, setLeaving] = useState(false)
   const leavingRef = useRef(false)
+
+  // Soft scattered starfield generated once on mount
+  const stars = useMemo<Star[]>(
+    () =>
+      Array.from({ length: 70 }, () => ({
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+        size: Math.random() < 0.85 ? 1 : 2,
+        delay: `${(Math.random() * 4).toFixed(2)}s`,
+        duration: `${(2.5 + Math.random() * 3).toFixed(2)}s`,
+      })),
+    [],
+  )
 
   // Detect reduced-motion preference
   const prefersReducedMotion =
@@ -73,25 +88,53 @@ export function Intro({ onFinish }: IntroProps) {
       aria-label="Benvenuto"
       onClick={skip}
       className={[
-        'fixed inset-0 z-[60] flex items-center justify-center bg-[#020617] text-white',
+        'fixed inset-0 z-[60] flex items-center justify-center overflow-hidden text-white',
         'cursor-pointer select-none',
         'transition-opacity duration-700',
         leaving ? 'opacity-0' : 'opacity-100',
       ].join(' ')}
+      style={{
+        background:
+          'radial-gradient(ellipse at 50% 38%, #111a44 0%, #070c24 45%, #02040e 100%)',
+      }}
     >
+      {/* Starfield */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        {stars.map((s, i) => (
+          <span
+            key={i}
+            className="absolute rounded-full bg-white"
+            style={{
+              top: s.top,
+              left: s.left,
+              width: `${s.size}px`,
+              height: `${s.size}px`,
+              animation: `introTwinkle ${s.duration} ease-in-out ${s.delay} infinite`,
+            }}
+          />
+        ))}
+      </div>
+
       {/* Greeting */}
-      <div aria-live="polite" className="text-center">
+      <div aria-live="polite" className="relative text-center px-6">
         <span
           key={displayIndex}
-          className="intro-greeting block text-6xl sm:text-8xl font-normal"
-          style={{ fontFamily: '"Dancing Script", cursive' }}
+          className="intro-greeting block font-normal leading-none"
+          style={{
+            fontFamily: '"Sacramento", cursive',
+            fontSize: 'clamp(4.5rem, 15vw, 15rem)',
+            whiteSpace: 'nowrap',
+          }}
         >
           {greetings[displayIndex]}
         </span>
       </div>
 
       {/* Signature */}
-      <p className="absolute bottom-8 right-8 text-sm tracking-wide text-white/55">
+      <p
+        className="absolute bottom-10 right-10 text-lg italic text-white/70 underline decoration-white/30 underline-offset-[6px]"
+        style={{ fontFamily: '"Cormorant Garamond", serif' }}
+      >
         in the mind of francois lampasona
       </p>
 
@@ -99,9 +142,9 @@ export function Intro({ onFinish }: IntroProps) {
       <button
         aria-label="Entra nel sito"
         onClick={e => { e.stopPropagation(); skip() }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs tracking-widest text-white/40 hover:text-white/70 transition-colors"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-xs tracking-[0.3em] text-white/40 hover:text-white/70 transition-colors"
       >
-        Entra ↓
+        ENTRA ↓
       </button>
     </div>
   )
