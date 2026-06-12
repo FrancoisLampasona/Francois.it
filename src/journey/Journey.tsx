@@ -16,6 +16,7 @@ const JourneyCanvas = lazy(() => import('./JourneyCanvas'))
 export function Journey() {
   const containerRef = useRef<HTMLDivElement>(null)
   const setProgress = useJourneyStore((s) => s.setProgress)
+  const setJourneyVisible = useJourneyStore((s) => s.setJourneyVisible)
   const [mode] = useState<'3d' | 'static'>(() =>
     isWebGLSupported() && !prefersReducedMotion() ? '3d' : 'static',
   )
@@ -31,6 +32,17 @@ export function Journey() {
     })
     return () => trigger.kill()
   }, [mode, setProgress])
+
+  useEffect(() => {
+    if (mode !== '3d' || !containerRef.current) return
+    if (typeof IntersectionObserver === 'undefined') return
+    const observer = new IntersectionObserver(
+      ([entry]) => setJourneyVisible(entry.isIntersecting),
+      { threshold: 0 },
+    )
+    observer.observe(containerRef.current)
+    return () => observer.disconnect()
+  }, [mode, setJourneyVisible])
 
   if (mode === 'static') {
     return <JourneyStatic />

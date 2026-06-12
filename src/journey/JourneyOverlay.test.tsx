@@ -12,6 +12,7 @@ beforeEach(() => {
 test('mostra titolo e testo della scena attiva', () => {
   render(<JourneyOverlay />)
   expect(screen.getByText('Un viaggio tra i mondi che ho costruito')).toBeInTheDocument()
+  expect(document.querySelector('[aria-live="polite"]')).toBeInTheDocument()
 })
 
 test('cambia testo quando il progress avanza', () => {

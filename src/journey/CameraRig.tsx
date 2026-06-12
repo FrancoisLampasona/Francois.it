@@ -4,6 +4,10 @@ import { CatmullRomCurve3, Vector3 } from 'three'
 import { journeyScenes } from './scenes'
 import { sceneIndexForProgress, useJourneyStore } from './store'
 
+// Module-level scratch vectors to avoid per-frame allocations
+const _scratchPos = new Vector3()
+const _scratchDesired = new Vector3()
+
 export function CameraRig() {
   const curve = useMemo(
     () =>
@@ -17,16 +21,21 @@ export function CameraRig() {
   )
   const lookTarget = useRef(new Vector3(0, 0, -20))
 
-  useFrame(({ camera }) => {
+  useFrame(({ camera }, delta) => {
     const progress = useJourneyStore.getState().progress
-    const point = curve.getPointAt(Math.min(progress, 0.9999))
-    camera.position.lerp(point, 0.08)
+    const alphaPos = 1 - Math.exp(-5 * delta)
+    const alphaLook = 1 - Math.exp(-4 * delta)
+
+    curve.getPointAt(Math.min(progress, 0.9999), _scratchPos)
+    camera.position.lerp(_scratchPos, alphaPos)
 
     const scene = journeyScenes[sceneIndexForProgress(progress)]
-    const desired = scene.planet
-      ? new Vector3(...scene.planet.position)
-      : curve.getPointAt(Math.min(progress + 0.05, 0.9999))
-    lookTarget.current.lerp(desired, 0.06)
+    if (scene.planet) {
+      _scratchDesired.set(...scene.planet.position)
+    } else {
+      curve.getPointAt(Math.min(progress + 0.05, 0.9999), _scratchDesired)
+    }
+    lookTarget.current.lerp(_scratchDesired, alphaLook)
     camera.lookAt(lookTarget.current)
   })
 

@@ -4,11 +4,15 @@ import { journeyScenes } from './scenes'
 type JourneyState = {
   progress: number
   setProgress: (p: number) => void
+  journeyVisible: boolean
+  setJourneyVisible: (v: boolean) => void
 }
 
 export const useJourneyStore = create<JourneyState>((set) => ({
   progress: 0,
   setProgress: (p) => set({ progress: Math.min(1, Math.max(0, p)) }),
+  journeyVisible: true,
+  setJourneyVisible: (v) => set({ journeyVisible: v }),
 }))
 
 export function sceneIndexForProgress(

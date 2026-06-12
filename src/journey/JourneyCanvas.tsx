@@ -1,12 +1,14 @@
 import { Canvas } from '@react-three/fiber'
 import { Stars } from '@react-three/drei'
 import { journeyScenes } from './scenes'
+import { useJourneyStore } from './store'
 import { Planet } from './Planet'
 import { CameraRig } from './CameraRig'
 
 export default function JourneyCanvas() {
+  const visible = useJourneyStore((s) => s.journeyVisible)
   return (
-    <Canvas camera={{ fov: 60, position: [0, 0, 10] }} dpr={[1, 2]}>
+    <Canvas camera={{ fov: 60, position: [0, 0, 10] }} dpr={[1, 2]} frameloop={visible ? 'always' : 'never'}>
       <color attach="background" args={['#020617']} />
       <ambientLight intensity={0.5} />
       <directionalLight position={[8, 10, 6]} intensity={1.2} />

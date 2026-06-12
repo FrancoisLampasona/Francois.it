@@ -16,7 +16,7 @@ export function JourneyOverlay() {
 
   return (
     <div className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-end pb-16">
-      <div key={scene.id} className="max-w-xl px-6 text-center">
+      <div key={scene.id} aria-live="polite" className="max-w-xl px-6 text-center">
         <h2 className="text-2xl font-semibold sm:text-3xl">{t(scene.titleKey)}</h2>
         <p className="mt-3 text-sm text-slate-300 sm:text-base">{t(scene.textKey)}</p>
       </div>
