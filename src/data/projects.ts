@@ -1,12 +1,12 @@
 export type Project = {
-  id: string
-  titleKey: string
-  descKey: string
-  tech: string[]
-  year: number
+  readonly id: string
+  readonly titleKey: string
+  readonly descKey: string
+  readonly tech: readonly string[]
+  readonly year: number
 }
 
-export const projects: Project[] = [
+export const projects: readonly Project[] = [
   {
     id: 'gym-app',
     titleKey: 'projects.gym.title',
@@ -29,7 +29,7 @@ export const projects: Project[] = [
     year: 2023,
   },
   {
-    id: 'boopstudio',
+    id: 'boop',
     titleKey: 'projects.boop.title',
     descKey: 'projects.boop.desc',
     tech: ['UX/UI', 'Design', 'Hosting'],
