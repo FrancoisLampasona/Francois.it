@@ -26,8 +26,9 @@ const tasks = [
   // OG image: cover crop 1200x630, jpeg q85
   { in: 'og-image.png',       out: 'public/og.jpg',        op: 'og' },
   // Favicons
-  { in: 'favicon.png',        out: 'public/favicon.png',   op: 'favicon512' },
-  { in: 'favicon.png',        out: 'public/favicon-32.png', op: 'favicon32' },
+  { in: 'favicon.png',        out: 'public/favicon.png',          op: 'favicon512' },
+  { in: 'favicon.png',        out: 'public/favicon-32.png',       op: 'favicon32' },
+  { in: 'favicon.png',        out: 'public/apple-touch-icon.png', op: 'apple-touch' },
 ]
 
 async function processTask(task) {
@@ -65,6 +66,11 @@ async function processTask(task) {
     case 'favicon32':
       pipeline = pipeline
         .resize(32, 32)
+        .png()
+      break
+    case 'apple-touch':
+      pipeline = pipeline
+        .resize(180, 180)
         .png()
       break
   }

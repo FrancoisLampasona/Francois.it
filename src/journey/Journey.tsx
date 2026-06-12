@@ -54,7 +54,7 @@ export function Journey() {
     <div ref={containerRef} className="relative" style={{ height: `${journeyScenes.length * 100}vh` }}>
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <JourneyBackdrop />
-        <Suspense fallback={<div className="h-full w-full bg-transparent" style={{ backgroundColor: JOURNEY_BG }} />}>
+        <Suspense fallback={<div className="h-full w-full" style={{ backgroundColor: JOURNEY_BG }} />}>
           <JourneyCanvas />
         </Suspense>
         <JourneyOverlay />

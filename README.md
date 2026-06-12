@@ -13,6 +13,8 @@ npm run build      # type-check + build di produzione
 npm run preview    # anteprima della build
 ```
 
+- `node scripts/optimize-assets.mjs` rigenera gli asset WebP da `asset-src/` (cartella locale non versionata)
+
 ## Struttura
 
 - `src/components/desk/` — la Scrivania (hub contenuti: Progetti, CV, Link, Contatti)

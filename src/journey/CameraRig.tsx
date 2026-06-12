@@ -34,7 +34,7 @@ export function CameraRig() {
 
     if (progress >= 0.92) {
       const t = (progress - 0.92) / 0.08
-      camera.position.lerp(FINALE_TARGET, t * 0.5)
+      camera.position.lerp(FINALE_TARGET, 1 - Math.exp(-6 * t * delta))
     }
 
     const scene = journeyScenes[sceneIndexForProgress(progress)]

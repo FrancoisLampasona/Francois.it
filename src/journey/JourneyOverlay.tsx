@@ -6,6 +6,7 @@ import { prefersReducedMotion } from './capabilities'
 export function JourneyOverlay() {
   const { t } = useTranslation()
   const index = useJourneyStore((s) => sceneIndexForProgress(s.progress))
+  const nearEnd = useJourneyStore((s) => s.progress >= 0.95)
   const scene = journeyScenes[index]
 
   const skipToDesk = () => {
@@ -16,9 +17,11 @@ export function JourneyOverlay() {
 
   return (
     <div className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-end pb-16">
-      <div key={scene.id} aria-live="polite" className="max-w-xl px-6 text-center">
-        <h2 className="text-2xl font-semibold sm:text-3xl">{t(scene.titleKey)}</h2>
-        <p className="mt-3 text-sm text-slate-300 sm:text-base">{t(scene.textKey)}</p>
+      <div aria-live="polite" aria-atomic="true" className="max-w-xl px-6 text-center">
+        <div key={scene.id}>
+          <h2 className="text-2xl font-semibold sm:text-3xl">{t(scene.titleKey)}</h2>
+          <p className="mt-3 text-sm text-slate-300 sm:text-base">{t(scene.textKey)}</p>
+        </div>
       </div>
       <nav aria-label={t('journey.progress')} className="mt-6 flex gap-2">
         {journeyScenes.map((s, i) => (
@@ -36,7 +39,8 @@ export function JourneyOverlay() {
       <button
         type="button"
         onClick={skipToDesk}
-        className="pointer-events-auto mt-6 rounded-full border border-slate-600 px-4 py-1.5 text-sm text-slate-300 hover:bg-white/10 hover:text-white"
+        tabIndex={nearEnd ? -1 : 0}
+        className={`pointer-events-auto mt-6 rounded-full border border-slate-600 px-4 py-1.5 text-sm text-slate-300 hover:bg-white/10 hover:text-white ${nearEnd ? 'invisible' : ''}`}
       >
         {t('journey.skip')}
       </button>
