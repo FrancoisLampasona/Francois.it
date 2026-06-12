@@ -94,7 +94,7 @@ Cartelle che aprono finestre in stile "sistema operativo":
 
 ### Deploy
 
-- Vercel (gratuito, HTTPS, preview deploy). L'utente possiede già un dominio personalizzato, che verrà collegato a Vercel al momento del deploy.
+- Vercel (gratuito, HTTPS, preview deploy). Dominio dell'utente: **francoislampasona.it**, da collegare a Vercel al momento del deploy.
 
 ## Testing
 
