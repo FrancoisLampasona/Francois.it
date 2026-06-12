@@ -11,7 +11,8 @@ test('mostra nome, ruolo e toggle lingua', () => {
 test('mostra il viaggio prima della scrivania', () => {
   render(<App />)
   expect(screen.getByText('Un viaggio tra i mondi che ho costruito')).toBeInTheDocument()
-  expect(screen.getByRole('button', { name: 'Progetti' })).toBeInTheDocument()
+  // 'Progetti' now appears twice: desktop icon + dock item
+  expect(screen.getAllByRole('button', { name: 'Progetti' })[0]).toBeInTheDocument()
 })
 
 test('la scrivania è raggiungibile via anchor #desk', () => {

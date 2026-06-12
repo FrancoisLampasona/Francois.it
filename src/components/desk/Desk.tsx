@@ -25,9 +25,11 @@ export function Desk() {
   return (
     <section
       aria-label={t('desk.title')}
-      className="flex min-h-screen items-center justify-center bg-gradient-to-b from-indigo-950 via-slate-900 to-slate-950"
+      className="relative min-h-screen bg-cover bg-center"
+      style={{ backgroundImage: 'url(/journey/scrivania.webp)' }}
     >
-      <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+      {/* Desktop icons — top-right, macOS style */}
+      <div className="absolute right-8 top-24 grid grid-cols-2 gap-6">
         {(Object.keys(WINDOWS) as WindowId[]).map((id) => (
           <Folder
             key={id}
@@ -37,6 +39,25 @@ export function Desk() {
           />
         ))}
       </div>
+
+      {/* macOS dock — bottom center */}
+      <nav
+        aria-label="Dock"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 rounded-2xl border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-xl shadow-2xl"
+      >
+        {(Object.keys(WINDOWS) as WindowId[]).map((id) => (
+          <button
+            key={id}
+            aria-haspopup="dialog"
+            onClick={() => setOpen(id)}
+            className="flex flex-col items-center transition-transform hover:scale-125 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-400"
+          >
+            <span className="text-3xl" aria-hidden="true">{WINDOWS[id].icon}</span>
+            <span className="sr-only">{t(`desk.${id}`)}</span>
+          </button>
+        ))}
+      </nav>
+
       {active && open && (
         <Window titleKey={`desk.${open}`} onClose={closeWindow}>
           <active.Component />

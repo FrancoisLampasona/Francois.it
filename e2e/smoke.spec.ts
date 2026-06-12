@@ -17,7 +17,8 @@ test('salta alla scrivania porta alle cartelle', async ({ page }) => {
   await skipBtn.click()
 
   // After scrolling, the Progetti folder button should be visible in viewport
-  const progettiBtn = page.getByRole('button', { name: 'Progetti' })
+  // Use first() because name 'Progetti' now matches both desktop icon and dock item
+  const progettiBtn = page.getByRole('button', { name: 'Progetti' }).first()
   await expect(progettiBtn).toBeInViewport({ timeout: 10_000 })
 })
 
@@ -33,7 +34,8 @@ test('le cartelle aprono le finestre', async ({ page }) => {
   })
 
   for (const name of folders) {
-    const folderBtn = page.getByRole('button', { name })
+    // Use first() because name now matches both desktop icon and dock item
+    const folderBtn = page.getByRole('button', { name }).first()
     await expect(folderBtn).toBeVisible({ timeout: 10_000 })
     await folderBtn.click()
 
@@ -56,8 +58,8 @@ test('il CV è scaricabile', async ({ page }) => {
     document.getElementById('desk')?.scrollIntoView({ behavior: 'instant' })
   })
 
-  // Open CV window
-  const cvBtn = page.getByRole('button', { name: 'CV' })
+  // Open CV window — use first() because name 'CV' now matches both desktop icon and dock item
+  const cvBtn = page.getByRole('button', { name: 'CV' }).first()
   await expect(cvBtn).toBeVisible({ timeout: 10_000 })
   await cvBtn.click()
 
