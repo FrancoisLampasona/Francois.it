@@ -18,7 +18,10 @@ npm run preview    # anteprima della build
 - `src/components/desk/` — la Scrivania (hub contenuti: Progetti, CV, Link, Contatti)
 - `src/i18n/` — dizionari IT/EN
 - `src/data/` — profilo e progetti
+- `src/journey/` — il viaggio 3D (scene, store, canvas R3F, overlay, fallback statico)
+- `public/journey/` — asset dipinti generati con Higgsfield (ottimizzati WebP)
 - `docs/superpowers/` — spec di design e piani di implementazione
+- `e2e/` — smoke test Playwright (`npm run test:e2e`)
 
 ## Deploy
 
