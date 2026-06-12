@@ -12,9 +12,9 @@ useTexture.preload('/journey/castello-salemi.webp')
 useTexture.preload('/journey/francois-cane.webp')
 
 // Origini planet: center [12, 0, -14], radius 3
-// Castle sits on top: planet top at y=3, plane center ~1.4 above → y=4.4
-const CASTLE_POSITION: Vec3 = [12, 4.4, -14]
-const CASTLE_SCALE = 3.2
+// Castle sits on top: planet top at y=3, plane center ~1.05 above → y=4.05
+const CASTLE_POSITION: Vec3 = [12, 4.05, -14]
+const CASTLE_SCALE = 3.6
 
 // Finale planet: center [-10, 2, -92], radius 4
 // Francois+dog on top surface: planet top at y=6, center ~0.6 above → y=6.6

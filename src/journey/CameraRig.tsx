@@ -8,6 +8,9 @@ import { sceneIndexForProgress, useJourneyStore } from './store'
 const _scratchPos = new Vector3()
 const _scratchDesired = new Vector3()
 
+// Zoom target: slightly in front of the finale planet center [-10, 2, -92]
+const FINALE_TARGET = new Vector3(-10, 4, -86)
+
 export function CameraRig() {
   const curve = useMemo(
     () =>
@@ -28,6 +31,11 @@ export function CameraRig() {
 
     curve.getPointAt(Math.min(progress, 0.9999), _scratchPos)
     camera.position.lerp(_scratchPos, alphaPos)
+
+    if (progress >= 0.92) {
+      const t = (progress - 0.92) / 0.08
+      camera.position.lerp(FINALE_TARGET, t * 0.5)
+    }
 
     const scene = journeyScenes[sceneIndexForProgress(progress)]
     if (scene.planet) {

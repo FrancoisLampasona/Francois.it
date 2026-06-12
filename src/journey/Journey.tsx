@@ -6,6 +6,7 @@ import { isWebGLSupported, prefersReducedMotion } from './capabilities'
 import { useJourneyStore } from './store'
 import { JourneyBackdrop } from './JourneyBackdrop'
 import { JourneyOverlay } from './JourneyOverlay'
+import { JourneyFade } from './JourneyFade'
 import { JourneyStatic } from './JourneyStatic'
 
 if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
@@ -57,6 +58,7 @@ export function Journey() {
           <JourneyCanvas />
         </Suspense>
         <JourneyOverlay />
+        <JourneyFade />
       </div>
     </div>
   )
