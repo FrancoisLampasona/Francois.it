@@ -5,8 +5,7 @@ import { prefersReducedMotion } from './capabilities'
 
 export function JourneyOverlay() {
   const { t } = useTranslation()
-  const progress = useJourneyStore((s) => s.progress)
-  const index = sceneIndexForProgress(progress)
+  const index = useJourneyStore((s) => sceneIndexForProgress(s.progress))
   const scene = journeyScenes[index]
 
   const skipToDesk = () => {
@@ -32,8 +31,10 @@ export function JourneyOverlay() {
             }`}
           />
         ))}
+        <span className="sr-only">{`${index + 1} / ${journeyScenes.length}`}</span>
       </nav>
       <button
+        type="button"
         onClick={skipToDesk}
         className="pointer-events-auto mt-6 rounded-full border border-slate-600 px-4 py-1.5 text-sm text-slate-300 hover:bg-white/10 hover:text-white"
       >
