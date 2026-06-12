@@ -29,5 +29,7 @@ if (typeof globalThis !== 'undefined' && !globalThis.localStorage) {
 
 beforeEach(async () => {
   localStorage.clear()
+  // Skip the intro overlay in unit tests so App renders its full content
+  try { sessionStorage.setItem('introSeen', '1') } catch {}
   await i18n.changeLanguage('it')
 })

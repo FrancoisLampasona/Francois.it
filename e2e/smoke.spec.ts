@@ -1,5 +1,10 @@
 import { test, expect } from '@playwright/test'
 
+// Skip the intro overlay for all smoke tests so the underlying site is reachable
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => sessionStorage.setItem('introSeen', '1'))
+})
+
 test('il sito carica con il titolo giusto', async ({ page }) => {
   await page.goto('/')
   await expect(page).toHaveTitle(/Francois Lampasona/)
