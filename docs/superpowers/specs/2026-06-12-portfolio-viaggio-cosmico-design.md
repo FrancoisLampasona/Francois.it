@@ -94,7 +94,7 @@ Cartelle che aprono finestre in stile "sistema operativo":
 
 ### Deploy
 
-- Vercel (gratuito, HTTPS, preview deploy). Dominio personalizzato collegabile in seguito (da decidere, es. francoislampasona.dev).
+- Vercel (gratuito, HTTPS, preview deploy). L'utente possiede già un dominio personalizzato, che verrà collegato a Vercel al momento del deploy.
 
 ## Testing
 
@@ -111,5 +111,4 @@ Cartelle che aprono finestre in stile "sistema operativo":
 
 ## Domande aperte
 
-- Dominio definitivo (si può decidere al momento del deploy).
 - Lista definitiva dei progetti da mostrare nella cartella Progetti (da raccogliere prima dell'implementazione della scrivania).
