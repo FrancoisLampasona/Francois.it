@@ -24,4 +24,15 @@ test('apre una sola finestra alla volta', async () => {
   await userEvent.click(screen.getByRole('button', { name: 'Contatti' }))
   expect(screen.getAllByRole('dialog')).toHaveLength(1)
   expect(screen.getByRole('dialog', { name: 'Contatti' })).toBeInTheDocument()
+  await userEvent.click(screen.getByRole('button', { name: 'Progetti' }))
+  expect(screen.getAllByRole('dialog')).toHaveLength(1)
+  expect(screen.getByRole('dialog', { name: 'Progetti' })).toBeInTheDocument()
+})
+
+test('al termine il focus torna alla cartella che ha aperto la finestra', async () => {
+  render(<Desk />)
+  const folder = screen.getByRole('button', { name: 'Progetti' })
+  await userEvent.click(folder)
+  await userEvent.click(screen.getByRole('button', { name: 'Chiudi' }))
+  expect(folder).toHaveFocus()
 })

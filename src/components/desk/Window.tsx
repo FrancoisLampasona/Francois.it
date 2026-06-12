@@ -10,14 +10,19 @@ type WindowProps = {
 export function Window({ titleKey, onClose, children }: WindowProps) {
   const { t } = useTranslation()
   const panelRef = useRef<HTMLDivElement>(null)
+  const returnFocusRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
+    returnFocusRef.current = document.activeElement as HTMLElement | null
     panelRef.current?.focus()
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    return () => {
+      returnFocusRef.current?.focus()
+      window.removeEventListener('keydown', onKey)
+    }
   }, [onClose])
 
   return (

@@ -11,6 +11,7 @@ export function Folder({ labelKey, icon, onOpen }: FolderProps) {
   return (
     <button
       onClick={onOpen}
+      aria-haspopup="dialog"
       className="flex flex-col items-center gap-2 rounded-lg p-4 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-400"
     >
       <span className="text-5xl" aria-hidden="true">
