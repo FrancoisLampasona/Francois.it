@@ -1,0 +1,41 @@
+{
+  "common": { "close": "Close" },
+  "hero": { "role": "Full Stack Developer | DevOps Enthusiast" },
+  "desk": {
+    "title": "My desk",
+    "projects": "Projects",
+    "cv": "Resume",
+    "links": "Links",
+    "contacts": "Contact"
+  },
+  "cv": {
+    "download": "Download resume (PDF)",
+    "noPreview": "Preview not available: download the PDF below."
+  },
+  "links": {
+    "linkedin": "LinkedIn profile",
+    "github": "GitHub profile"
+  },
+  "contacts": {
+    "intro": "Got a project in mind or an offer? Drop me a line.",
+    "email": "Email me"
+  },
+  "projects": {
+    "gym": {
+      "title": "Gym management app",
+      "desc": "Flutter mobile app for managing workouts and transport, with integrated backend and REST APIs."
+    },
+    "ecommerce": {
+      "title": "Tailor-made e-commerce",
+      "desc": "Online stores built with WooCommerce, Shopify and enterprise Magento, optimized for speed and conversion."
+    },
+    "vetrina": {
+      "title": "Showcase websites",
+      "desc": "Custom showcase websites for businesses and professionals, crafted from idea to delivery."
+    },
+    "boop": {
+      "title": "BoopStudio",
+      "desc": "My startup for end-to-end website development: UX/UI, coding and hosting deployment."
+    }
+  }
+}
