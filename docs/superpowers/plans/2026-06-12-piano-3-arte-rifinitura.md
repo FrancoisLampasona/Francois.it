@@ -32,7 +32,7 @@ Modello: `gpt_image_2`, `--resolution 2k`, `--wait`. Stile comune (suffisso di o
 | 7 | bg-finale | 16:9 | spectacular colorful nebula sky: purple, blue, pink and orange clouds, two crescent moons, dense glittering stars (mood dell'immagine di riferimento dell'utente) |
 | 8 | castello-salemi | 1:1 | medieval stone castle of Salemi Sicily (square Norman keep) on a small hill, Italian tricolor flag and Sicilian Trinacria flag waving on poles, **transparent background** |
 | 9 | francois-cane | 1:1 | young man seen from behind standing next to a small dog, looking up at the sky, painted silhouette with warm rim light, **transparent background** |
-| 10 | scrivania | 16:9 | cozy wooden desk seen from directly above at night: laptop, notebook, coffee cup, small plant, warm lamp glow, space-themed poster edge |
+| 10 | scrivania | 16:9 | breathtaking macOS-style desktop wallpaper, painted cosmic scene: deep starry sky with colorful nebulae, a small glowing planet low on the horizon, clean composition with calm dark areas where desktop icons can sit |
 | 11 | og-image | 16:9 | tiny figure with a dog standing on a small pink planet watching an immense colorful nebula sky, epic and tender |
 | 12 | favicon | 1:1 | single cute ringed planet, bold simple shapes, readable when tiny, dark background |
 
@@ -63,11 +63,12 @@ Procedura: `higgsfield generate create gpt_image_2 --prompt "..." --aspect_ratio
 - [ ] Lazy: le texture si caricano col chunk 3D (`useTexture.preload` per le due immagini)
 - [ ] Checkpoint visivo: scala/posizione corrette a 60fps
 
-## Task 5 — Scrivania dipinta (subagent + checkpoint visivo)
+## Task 5 — Scrivania "desktop macOS cosmico" (subagent + checkpoint visivo)
 
-- [ ] `Desk.tsx`: sostituisci il gradiente con l'illustrazione (`bg-[url(/journey/scrivania.webp)] bg-cover bg-center`); leggero overlay scuro per leggibilità delle label
-- [ ] Cartelle: mantieni le emoji ma su "card" vetro smerigliato (`bg-white/10 backdrop-blur rounded-xl`) per staccare dal fondale
-- [ ] Test esistenti restano verdi (nessun cambio di semantica)
+- [ ] `Desk.tsx`: sostituisci il gradiente col wallpaper dipinto (`bg-[url(/journey/scrivania.webp)] bg-cover bg-center`)
+- [ ] Look macOS: cartelle come icone desktop (griglia in alto a destra, label con ombra leggera per leggibilità) **+ dock translucido in basso** (`bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20`) con le stesse 4 voci — entrambe le vie aprono le finestre
+- [ ] Le finestre OS-style esistenti (semafori, barra titolo) restano: già coerenti col tema
+- [ ] Test: aggiorna i test della Desk se i ruoli/nomi cambiano (le voci dock e icone hanno lo stesso accessible name: usare `getAllByRole`); semantica di apertura/chiusura invariata
 
 ## Task 6 — Transizione finale→scrivania + carry-over Piano 2 (subagent)
 
