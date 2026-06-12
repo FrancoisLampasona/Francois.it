@@ -61,7 +61,7 @@ export function Intro({ onFinish }: IntroProps) {
   // Cycle greetings (disabled in reduced-motion mode — count=0 disables interval)
   const index = useGreetingCycle(
     prefersReducedMotion ? 0 : greetings.length,
-    650,
+    800,
     handleDone,
   )
 
