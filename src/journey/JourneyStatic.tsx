@@ -8,15 +8,13 @@ export function JourneyStatic() {
       {journeyScenes.map((scene) => (
         <section
           key={scene.id}
-          className="flex min-h-screen flex-col items-center justify-center px-6 text-center"
-          style={
-            scene.planet
-              ? { background: `radial-gradient(ellipse at bottom, ${scene.planet.color}22, #020617 70%)` }
-              : { background: '#020617' }
-          }
+          className="relative flex min-h-screen flex-col items-center justify-center px-6 text-center bg-cover bg-center"
+          style={{ backgroundImage: `url(${scene.backdrop})` }}
         >
-          <h2 className="text-3xl font-semibold">{t(scene.titleKey)}</h2>
-          <p className="mt-4 max-w-xl text-slate-300">{t(scene.textKey)}</p>
+          <div className="bg-black/40 rounded-xl px-6 py-4 backdrop-blur-[2px]">
+            <h2 className="text-3xl font-semibold">{t(scene.titleKey)}</h2>
+            <p className="mt-4 max-w-xl text-slate-300">{t(scene.textKey)}</p>
+          </div>
         </section>
       ))}
     </div>

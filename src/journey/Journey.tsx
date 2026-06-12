@@ -1,9 +1,10 @@
 import { Suspense, lazy, useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { journeyScenes } from './scenes'
+import { JOURNEY_BG, journeyScenes } from './scenes'
 import { isWebGLSupported, prefersReducedMotion } from './capabilities'
 import { useJourneyStore } from './store'
+import { JourneyBackdrop } from './JourneyBackdrop'
 import { JourneyOverlay } from './JourneyOverlay'
 import { JourneyStatic } from './JourneyStatic'
 
@@ -51,7 +52,8 @@ export function Journey() {
   return (
     <div ref={containerRef} className="relative" style={{ height: `${journeyScenes.length * 100}vh` }}>
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <Suspense fallback={<div className="h-full w-full bg-[#020617]" />}>
+        <JourneyBackdrop />
+        <Suspense fallback={<div className="h-full w-full bg-transparent" style={{ backgroundColor: JOURNEY_BG }} />}>
           <JourneyCanvas />
         </Suspense>
         <JourneyOverlay />

@@ -5,6 +5,7 @@ export type JourneyScene = {
   readonly titleKey: string
   readonly textKey: string
   readonly cameraPos: Vec3
+  readonly backdrop: string
   readonly planet?: {
     readonly position: Vec3
     readonly radius: number
@@ -12,18 +13,22 @@ export type JourneyScene = {
   }
 }
 
+export const JOURNEY_BG = '#020617'
+
 export const journeyScenes: readonly JourneyScene[] = [
   {
     id: 'decollo',
     titleKey: 'journey.decollo.title',
     textKey: 'journey.decollo.text',
     cameraPos: [0, 0, 10],
+    backdrop: '/journey/bg-decollo.webp',
   },
   {
     id: 'origini',
     titleKey: 'journey.origini.title',
     textKey: 'journey.origini.text',
     cameraPos: [12, 2, -6],
+    backdrop: '/journey/bg-origini.webp',
     planet: { position: [12, 0, -14], radius: 3, color: '#EF9F27' },
   },
   {
@@ -31,6 +36,7 @@ export const journeyScenes: readonly JourneyScene[] = [
     titleKey: 'journey.frontend.title',
     textKey: 'journey.frontend.text',
     cameraPos: [24, -2, -22],
+    backdrop: '/journey/bg-frontend.webp',
     planet: { position: [24, -4, -30], radius: 2.5, color: '#5DCAA5' },
   },
   {
@@ -38,6 +44,7 @@ export const journeyScenes: readonly JourneyScene[] = [
     titleKey: 'journey.backend.title',
     textKey: 'journey.backend.text',
     cameraPos: [12, -6, -38],
+    backdrop: '/journey/bg-backend.webp',
     planet: { position: [10, -8, -46], radius: 2.8, color: '#378ADD' },
   },
   {
@@ -45,6 +52,7 @@ export const journeyScenes: readonly JourneyScene[] = [
     titleKey: 'journey.maserati.title',
     textKey: 'journey.maserati.text',
     cameraPos: [-2, -2, -52],
+    backdrop: '/journey/bg-maserati.webp',
     planet: { position: [-4, -4, -60], radius: 3.2, color: '#3C3489' },
   },
   {
@@ -52,6 +60,7 @@ export const journeyScenes: readonly JourneyScene[] = [
     titleKey: 'journey.boop.title',
     textKey: 'journey.boop.text',
     cameraPos: [-14, 2, -66],
+    backdrop: '/journey/bg-boop.webp',
     planet: { position: [-16, 0, -74], radius: 2.4, color: '#ED93B1' },
   },
   {
@@ -59,6 +68,7 @@ export const journeyScenes: readonly JourneyScene[] = [
     titleKey: 'journey.finale.title',
     textKey: 'journey.finale.text',
     cameraPos: [-10, 6, -82],
+    backdrop: '/journey/bg-finale.webp',
     planet: { position: [-10, 2, -92], radius: 4, color: '#D4537E' },
   },
 ]

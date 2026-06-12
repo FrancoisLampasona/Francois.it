@@ -1,3 +1,5 @@
+import { existsSync } from 'node:fs'
+import { join } from 'node:path'
 import i18n from '../i18n'
 import { journeyScenes } from './scenes'
 
@@ -28,4 +30,12 @@ test('le coordinate sono numeri finiti', () => {
 test('le scene dei capitoli hanno un pianeta', () => {
   const withPlanet = journeyScenes.filter((s) => s.planet)
   expect(withPlanet.length).toBeGreaterThanOrEqual(6)
+})
+
+test('ogni scena ha un backdrop che punta a un file esistente in public/', () => {
+  for (const s of journeyScenes) {
+    expect(s.backdrop, `backdrop for ${s.id}`).toBeTruthy()
+    const filePath = join(process.cwd(), 'public', s.backdrop)
+    expect(existsSync(filePath), `file ${s.backdrop} deve esistere`).toBe(true)
+  }
 })
