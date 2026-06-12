@@ -1,9 +1,25 @@
 import { Canvas } from '@react-three/fiber'
-import { Stars } from '@react-three/drei'
+import { Stars, useTexture } from '@react-three/drei'
 import { journeyScenes } from './scenes'
 import { useJourneyStore } from './store'
 import { Planet } from './Planet'
 import { CameraRig } from './CameraRig'
+import { SceneSprite } from './SceneSprite'
+import type { Vec3 } from './scenes'
+
+// Preload sprite textures so they're ready before the scene renders
+useTexture.preload('/journey/castello-salemi.webp')
+useTexture.preload('/journey/francois-cane.webp')
+
+// Origini planet: center [12, 0, -14], radius 3
+// Castle sits on top: planet top at y=3, plane center ~1.4 above → y=4.4
+const CASTLE_POSITION: Vec3 = [12, 4.4, -14]
+const CASTLE_SCALE = 3.2
+
+// Finale planet: center [-10, 2, -92], radius 4
+// Francois+dog on top surface: planet top at y=6, center ~0.6 above → y=6.6
+const FRANCOIS_POSITION: Vec3 = [-10, 6.6, -92]
+const FRANCOIS_SCALE = 1.6
 
 export default function JourneyCanvas() {
   const visible = useJourneyStore((s) => s.journeyVisible)
@@ -29,6 +45,16 @@ export default function JourneyCanvas() {
             />
           ),
       )}
+      <SceneSprite
+        url="/journey/castello-salemi.webp"
+        position={CASTLE_POSITION}
+        scale={CASTLE_SCALE}
+      />
+      <SceneSprite
+        url="/journey/francois-cane.webp"
+        position={FRANCOIS_POSITION}
+        scale={FRANCOIS_SCALE}
+      />
       <CameraRig />
     </Canvas>
   )
