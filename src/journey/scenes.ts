@@ -10,6 +10,8 @@ export type JourneyScene = {
     readonly position: Vec3
     readonly radius: number
     readonly color: string
+    readonly texture: string
+    readonly ring?: boolean
   }
 }
 
@@ -27,48 +29,79 @@ export const journeyScenes: readonly JourneyScene[] = [
     id: 'origini',
     titleKey: 'journey.origini.title',
     textKey: 'journey.origini.text',
-    cameraPos: [12, 2, -6],
+    cameraPos: [16, 2, -5],
     backdrop: '/journey/bg-origini.webp',
-    planet: { position: [12, 0, -14], radius: 3, color: '#EF9F27' },
+    planet: {
+      position: [14, 0, -16],
+      radius: 3,
+      color: '#EF9F27',
+      texture: '/journey/tex-origini.webp',
+    },
   },
   {
     id: 'frontend',
     titleKey: 'journey.frontend.title',
     textKey: 'journey.frontend.text',
-    cameraPos: [24, -2, -22],
+    cameraPos: [32, -1, -29],
     backdrop: '/journey/bg-frontend.webp',
-    planet: { position: [24, -4, -30], radius: 2.5, color: '#5DCAA5' },
+    planet: {
+      position: [30, -3, -40],
+      radius: 2.8,
+      color: '#5DCAA5',
+      texture: '/journey/tex-frontend.webp',
+    },
   },
   {
     id: 'backend',
     titleKey: 'journey.backend.title',
     textKey: 'journey.backend.text',
-    cameraPos: [12, -6, -38],
+    cameraPos: [16, -8, -53],
     backdrop: '/journey/bg-backend.webp',
-    planet: { position: [10, -8, -46], radius: 2.8, color: '#378ADD' },
+    planet: {
+      position: [14, -10, -64],
+      radius: 3,
+      color: '#378ADD',
+      texture: '/journey/tex-backend.webp',
+    },
   },
   {
     id: 'maserati',
     titleKey: 'journey.maserati.title',
     textKey: 'journey.maserati.text',
-    cameraPos: [-2, -2, -52],
+    cameraPos: [-4, -3, -75],
     backdrop: '/journey/bg-maserati.webp',
-    planet: { position: [-4, -4, -60], radius: 3.2, color: '#3C3489' },
+    planet: {
+      position: [-6, -5, -86],
+      radius: 3.4,
+      color: '#3C3489',
+      texture: '/journey/tex-maserati.webp',
+    },
   },
   {
     id: 'boop',
     titleKey: 'journey.boop.title',
     textKey: 'journey.boop.text',
-    cameraPos: [-14, 2, -66],
+    cameraPos: [-24, 5, -97],
     backdrop: '/journey/bg-boop.webp',
-    planet: { position: [-16, 0, -74], radius: 2.4, color: '#ED93B1' },
+    planet: {
+      position: [-26, 3, -108],
+      radius: 2.6,
+      color: '#ED93B1',
+      texture: '/journey/tex-boop.webp',
+    },
   },
   {
     id: 'finale',
     titleKey: 'journey.finale.title',
     textKey: 'journey.finale.text',
-    cameraPos: [-10, 6, -82],
+    cameraPos: [-14, 6, -121],
     backdrop: '/journey/bg-finale.webp',
-    planet: { position: [-10, 2, -92], radius: 4, color: '#D4537E' },
+    planet: {
+      position: [-16, 4, -132],
+      radius: 4.5,
+      color: '#D4537E',
+      texture: '/journey/tex-finale.webp',
+      ring: true,
+    },
   },
 ]

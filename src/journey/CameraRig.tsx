@@ -8,8 +8,8 @@ import { sceneIndexForProgress, useJourneyStore } from './store'
 const _scratchPos = new Vector3()
 const _scratchDesired = new Vector3()
 
-// Zoom target: slightly in front of the finale planet center [-10, 2, -92]
-const FINALE_TARGET = new Vector3(-10, 4, -86)
+// Zoom target: slightly in front of the finale planet center [-16, 4, -132]
+const FINALE_TARGET = new Vector3(-16, 6, -126)
 
 export function CameraRig() {
   const curve = useMemo(

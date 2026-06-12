@@ -39,3 +39,18 @@ test('ogni scena ha un backdrop che punta a un file esistente in public/', () =>
     expect(existsSync(filePath), `file ${s.backdrop} deve esistere`).toBe(true)
   }
 })
+
+test('ogni pianeta ha una texture che punta a un file esistente in public/', () => {
+  for (const s of journeyScenes) {
+    if (!s.planet) continue
+    expect(s.planet.texture, `texture for ${s.id}`).toBeTruthy()
+    const filePath = join(process.cwd(), 'public', s.planet.texture)
+    expect(existsSync(filePath), `file ${s.planet.texture} deve esistere`).toBe(true)
+  }
+})
+
+test('solo il pianeta finale ha ring: true', () => {
+  const withRing = journeyScenes.filter((s) => s.planet?.ring)
+  expect(withRing).toHaveLength(1)
+  expect(withRing[0].id).toBe('finale')
+})

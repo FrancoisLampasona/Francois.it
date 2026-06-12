@@ -11,14 +11,14 @@ import type { Vec3 } from './scenes'
 useTexture.preload('/journey/castello-salemi.webp')
 useTexture.preload('/journey/francois-cane.webp')
 
-// Origini planet: center [12, 0, -14], radius 3
+// Origini planet: center [14, 0, -16], radius 3
 // Castle sits on top: planet top at y=3, plane center ~1.05 above → y=4.05
-const CASTLE_POSITION: Vec3 = [12, 4.05, -14]
+const CASTLE_POSITION: Vec3 = [14, 4.05, -16]
 const CASTLE_SCALE = 3.6
 
-// Finale planet: center [-10, 2, -92], radius 4
-// Francois+dog on top surface: planet top at y=6, center ~0.6 above → y=6.6
-const FRANCOIS_POSITION: Vec3 = [-10, 6.6, -92]
+// Finale planet: center [-16, 4, -132], radius 4.5
+// Francois+dog on top surface: planet top at y=8.5, center ~0.6 above → y=9.1
+const FRANCOIS_POSITION: Vec3 = [-16, 8.6, -132]
 const FRANCOIS_SCALE = 1.6
 
 export default function JourneyCanvas() {
@@ -31,8 +31,9 @@ export default function JourneyCanvas() {
       gl={{ alpha: true }}
       style={{ position: 'absolute', inset: 0 }}
     >
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={0.6} />
       <directionalLight position={[8, 10, 6]} intensity={1.2} />
+      <directionalLight position={[-6, -4, -8]} intensity={0.25} color="#8080ff" />
       <Stars radius={140} depth={90} count={4000} factor={4} saturation={0} fade speed={0.4} />
       {journeyScenes.map(
         (scene) =>
@@ -42,6 +43,8 @@ export default function JourneyCanvas() {
               position={scene.planet.position}
               radius={scene.planet.radius}
               color={scene.planet.color}
+              texture={scene.planet.texture}
+              ring={scene.planet.ring}
             />
           ),
       )}
