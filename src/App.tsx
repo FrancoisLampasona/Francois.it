@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { Journey } from './journey/Journey'
 import { Desk } from './components/desk/Desk'
 import { LanguageToggle } from './components/LanguageToggle'
 import { profile } from './data/profile'
@@ -15,7 +16,10 @@ export default function App() {
         <LanguageToggle />
       </header>
       <main>
-        <Desk />
+        <Journey />
+        <div id="desk">
+          <Desk />
+        </div>
       </main>
     </div>
   )
