@@ -15,4 +15,11 @@ describe('i18n', () => {
     await i18n.changeLanguage('en')
     expect(localStorage.getItem('lang')).toBe('en')
   })
+
+  test('aggiorna document.documentElement.lang al cambio lingua', async () => {
+    await i18n.changeLanguage('en')
+    expect(document.documentElement.lang).toBe('en')
+    await i18n.changeLanguage('it')
+    expect(document.documentElement.lang).toBe('it')
+  })
 })

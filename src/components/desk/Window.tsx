@@ -15,11 +15,36 @@ export function Window({ titleKey, onClose, children }: WindowProps) {
   useEffect(() => {
     returnFocusRef.current = document.activeElement as HTMLElement | null
     panelRef.current?.focus()
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') {
+        onClose()
+        return
+      }
+      if (e.key === 'Tab' && panelRef.current) {
+        const focusables = panelRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        )
+        if (focusables.length === 0) return
+        const first = focusables[0]
+        const last = focusables[focusables.length - 1]
+        const current = document.activeElement
+        if (e.shiftKey && (current === first || current === panelRef.current)) {
+          e.preventDefault()
+          last.focus()
+        } else if (!e.shiftKey && current === last) {
+          e.preventDefault()
+          first.focus()
+        } else if (current && !panelRef.current.contains(current)) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
     }
     window.addEventListener('keydown', onKey)
     return () => {
+      document.body.style.overflow = previousOverflow
       returnFocusRef.current?.focus()
       window.removeEventListener('keydown', onKey)
     }

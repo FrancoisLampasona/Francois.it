@@ -44,6 +44,32 @@ test('chiude cliccando il backdrop ma non cliccando dentro il pannello', async (
   )
   await userEvent.click(screen.getByText('contenuto'))
   expect(onClose).not.toHaveBeenCalled()
-  await userEvent.click(document.querySelector('.fixed.inset-0')!)
+  await userEvent.click(screen.getByRole('dialog').parentElement!)
   expect(onClose).toHaveBeenCalledTimes(1)
+})
+
+test('blocca lo scroll della pagina mentre è aperta', () => {
+  const { unmount } = render(
+    <Window titleKey="desk.projects" onClose={() => {}}>
+      <p>x</p>
+    </Window>,
+  )
+  expect(document.body.style.overflow).toBe('hidden')
+  unmount()
+  expect(document.body.style.overflow).toBe('')
+})
+
+test('il focus resta dentro la finestra premendo Tab', async () => {
+  render(
+    <Window titleKey="desk.projects" onClose={() => {}}>
+      <button>uno</button>
+      <button>due</button>
+    </Window>,
+  )
+  const dialog = screen.getByRole('dialog')
+  await userEvent.tab()
+  await userEvent.tab()
+  await userEvent.tab()
+  await userEvent.tab()
+  expect(dialog.contains(document.activeElement)).toBe(true)
 })

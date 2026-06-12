@@ -29,6 +29,13 @@ i18n.on('languageChanged', (lng) => {
   } catch {
     // localStorage not available
   }
+  if (typeof document !== 'undefined') {
+    document.documentElement.lang = lng
+  }
 })
+
+if (typeof document !== 'undefined') {
+  document.documentElement.lang = i18n.language
+}
 
 export default i18n

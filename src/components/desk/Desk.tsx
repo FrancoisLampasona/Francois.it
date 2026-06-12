@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Folder } from './Folder'
 import { Window } from './Window'
@@ -20,6 +20,7 @@ export function Desk() {
   const { t } = useTranslation()
   const [open, setOpen] = useState<WindowId | null>(null)
   const active = open ? WINDOWS[open] : null
+  const closeWindow = useCallback(() => setOpen(null), [])
 
   return (
     <section
@@ -37,7 +38,7 @@ export function Desk() {
         ))}
       </div>
       {active && open && (
-        <Window titleKey={`desk.${open}`} onClose={() => setOpen(null)}>
+        <Window titleKey={`desk.${open}`} onClose={closeWindow}>
           <active.Component />
         </Window>
       )}
