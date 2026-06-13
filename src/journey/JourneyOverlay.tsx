@@ -1,19 +1,13 @@
 import { useTranslation } from 'react-i18next'
 import { journeyScenes } from './scenes'
 import { sceneIndexForProgress, useJourneyStore } from './store'
-import { prefersReducedMotion } from './capabilities'
+import { scrollToDesk } from './smoothScroll'
 
 export function JourneyOverlay() {
   const { t } = useTranslation()
   const index = useJourneyStore((s) => sceneIndexForProgress(s.progress))
   const nearEnd = useJourneyStore((s) => s.progress >= 0.95)
   const scene = journeyScenes[index]
-
-  const skipToDesk = () => {
-    document.getElementById('desk')?.scrollIntoView({
-      behavior: prefersReducedMotion() ? 'auto' : 'smooth',
-    })
-  }
 
   return (
     <div className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-end pb-16">
@@ -43,7 +37,7 @@ export function JourneyOverlay() {
       </nav>
       <button
         type="button"
-        onClick={skipToDesk}
+        onClick={scrollToDesk}
         tabIndex={nearEnd ? -1 : 0}
         className={`pointer-events-auto mt-6 rounded-full border border-slate-600 px-4 py-1.5 text-sm text-slate-300 hover:bg-white/10 hover:text-white ${nearEnd ? 'invisible' : ''}`}
       >

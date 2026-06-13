@@ -31,15 +31,15 @@ export default function JourneyCanvas() {
   return (
     <Canvas
       camera={{ fov: 60, position: [0, 0, 10] }}
-      dpr={[1, 2]}
+      dpr={[1, 1.5]}
       frameloop={visible ? 'always' : 'never'}
-      gl={{ alpha: true }}
+      gl={{ alpha: true, powerPreference: 'high-performance', antialias: true }}
       style={{ position: 'absolute', inset: 0 }}
     >
       <ambientLight intensity={0.6} />
       <directionalLight position={[8, 10, 6]} intensity={1.2} />
       <directionalLight position={[-6, -4, -8]} intensity={0.25} color="#8080ff" />
-      <Stars radius={140} depth={90} count={4000} factor={4} saturation={0} fade speed={0.4} />
+      <Stars radius={140} depth={90} count={2200} factor={4} saturation={0} fade speed={0.3} />
       {journeyScenes.map(
         (scene, i) =>
           scene.planet && (

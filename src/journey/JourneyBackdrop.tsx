@@ -13,7 +13,7 @@ export function JourneyBackdrop() {
           data-testid={`backdrop-${scene.id}`}
           data-backdrop={scene.id}
           loading={i === 0 ? 'eager' : 'lazy'}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${
             i === index ? 'opacity-100' : 'opacity-0'
           }`}
         />

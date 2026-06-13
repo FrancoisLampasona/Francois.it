@@ -9,10 +9,14 @@ import { JourneyOverlay } from './JourneyOverlay'
 import { JourneyFade } from './JourneyFade'
 import { JourneyStatic } from './JourneyStatic'
 import { SceneLogos } from './SceneLogos'
+import { startSmoothScroll } from './smoothScroll'
 
 if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
   gsap.registerPlugin(ScrollTrigger)
 }
+
+// Scroll length per scene (vh). Lower = the journey traverses faster.
+const VH_PER_SCENE = 72
 
 const JourneyCanvas = lazy(() => import('./JourneyCanvas'))
 
@@ -26,20 +30,28 @@ export function Journey() {
 
   useEffect(() => {
     if (mode !== '3d' || !containerRef.current) return
+    const el = containerRef.current
+
+    const stopSmooth = startSmoothScroll({
+      snapCount: journeyScenes.length,
+      getRange: () => ({
+        start: el.offsetTop,
+        length: el.offsetHeight - window.innerHeight,
+      }),
+    })
+
     const trigger = ScrollTrigger.create({
-      trigger: containerRef.current,
+      trigger: el,
       start: 'top top',
       end: 'bottom bottom',
       scrub: true,
-      snap: {
-        snapTo: 1 / (journeyScenes.length - 1),
-        duration: { min: 0.3, max: 0.9 },
-        ease: 'power2.inOut',
-        delay: 0.1,
-      },
       onUpdate: (self) => setProgress(self.progress),
     })
-    return () => trigger.kill()
+
+    return () => {
+      trigger.kill()
+      stopSmooth()
+    }
   }, [mode, setProgress])
 
   useEffect(() => {
@@ -58,7 +70,7 @@ export function Journey() {
   }
 
   return (
-    <div ref={containerRef} className="relative" style={{ height: `${journeyScenes.length * 100}vh` }}>
+    <div ref={containerRef} className="relative" style={{ height: `${journeyScenes.length * VH_PER_SCENE}vh` }}>
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <JourneyBackdrop />
         <Suspense fallback={<div className="h-full w-full" style={{ backgroundColor: JOURNEY_BG }} />}>
